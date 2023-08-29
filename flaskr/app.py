@@ -1,17 +1,19 @@
 from flaskr import create_app
-from .modelos import db, Usuario, Album, Medio
-from .modelos import AlbumSchema
+from .modelos import db, Cancion
+from flask_restful import Api
+from .vistas import vista_canciones, vista_cancion
 
-app = create_app('default')
+app = create_app("default")
 app_context = app.app_context()
 app_context.push()
 
 db.init_app(app)
 db.create_all()
 
-with app.app_context():
-    AlbumSchema = AlbumSchema()
-    a = Album(titulo='Puebas', anio=2002, description='Hola', medios=Medio.cd)
-    db.session.add(a)
-    db.session.commit()
-    print([Album_Schema.dumps(album) for album in Album.query.all()])
+#inicio la api
+api = Api(app)
+
+#ruta a la vista que quiero consultar parametro la clase a usar y la ruta esta clase tiene tanto get como post dentro
+api.add_resource(vista_canciones,'/canciones')
+api.add_resource(vista_cancion,'/canciones/<int:id>')
+

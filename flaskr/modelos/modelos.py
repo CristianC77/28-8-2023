@@ -30,7 +30,7 @@ class Album(db.Model):
     medio = db.Column(db.Enum(Medio))
     usuario = db.Column(db.Integer, db.ForeignKey("usuario.id"))
     canciones = db.relationship('Cancion', secondary='album_cancion', back_populates="albumes")
-    __table_args__ = (db.UniqueConstraint("id_usuario", "titulo", name="titulo_unico_album"),)
+    __table_args__ = (db.UniqueConstraint("usuario", "titulo", name="titulo_unico_album"),)
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,15 +38,29 @@ class Usuario(db.Model):
     contrasena = db.Column(db.String(120))
     albumes = db.relationship('Album', cascade='all, delete, delete-orphan')
 
+class EnumADiccionario(fields.Field):
+    def _serialize(self, value, attr, obj, **kwargs):
+        if value is None:
+            return None
+        return {"llave":value.name, "valor":value.value}
+
 class AlbumSchema(SQLAlchemyAutoSchema):
-    medio = EnumADiccionario(attribute=('medio'))
+    medio = EnumADiccionario(attribute=("medio"))
     class Meta:
         model = Album
         include_relationships = True
         load_instance = True
 
-class EnumADiccionario(fields.Field):
-    def _serialize(self, value, attr, obj, **kwargs):
-        if value is None:
-            return None
-        return {'llave':value.name, 'valor':value.value}
+class CancionSchema(SQLAlchemyAutoSchema):
+
+    class Meta:
+        model = Cancion
+        include_relationships = True
+        load_instance = True
+
+class UsuarioSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Usuario
+        include_relationships = True
+        load_instance = True
+
