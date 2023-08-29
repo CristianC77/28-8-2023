@@ -1,0 +1,9 @@
+Que es una clase?
+
+Una clase es una plantilla o modelo que se utiliza para crear objetos en la programación orientada a objetos (POO). Proporciona una estructura para definir un conjunto de variables y métodos apropiados para operar con los datos. Algunos detalles exactos sobre las clases son:
+
+Una clase define las características y el comportamiento de un objeto. Puede tener variables miembro, métodos y propiedades.
+Los campos de datos son variables que almacenan el estado de una clase. Son accesibles desde dentro de la clase y pueden ser privados o públicos.
+Los métodos son funciones que realizan acciones o cálculos en una clase. Pueden recibir parámetros y devolver valores.
+Las propiedades son una forma de acceder y manipular los campos de datos de una clase. Proporcionan un mecanismo para controlar el acceso y la modificación de los datos.
+Una clase puede heredar características de otra clase, lo que permite la reutilización de código y la creación de jerarquías de clases.
